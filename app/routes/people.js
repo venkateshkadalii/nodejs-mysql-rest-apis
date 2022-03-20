@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const mysqlConnection = require('../connection.js')
 
+// GET
 router.get('/cities', (req, res) => {
     mysqlConnection.query("SELECT * FROM city", (err, rows, fields) => {
         if(!err) {
@@ -19,6 +20,7 @@ router.get('/cities', (req, res) => {
     })
 })
 
+// DELETE
 router.delete('/delete-city', async function(req, res) {
     mysqlConnection.query("DELETE FROM city WHERE id=?", [req.body.id], (err, rows, fileds) => {
         if(err) {
@@ -35,6 +37,7 @@ router.delete('/delete-city', async function(req, res) {
     })
 })
 
+// POST
 router.post('/insert-city', async function (req, res) {
     mysqlConnection.query('INSERT INTO CITY (ID, Name, CountryCode, District, Population) VALUES (?, ?, ?, ?, ?)', [req.body.id, req.body.name, req.body.country_code, req.body.district, req.body.population], (err, rows, fields) => {
         if(err) {
@@ -52,6 +55,7 @@ router.post('/insert-city', async function (req, res) {
     })
 })
 
+// PUT
 router.put('/update-city', async function(req, res) {
     mysqlConnection.query("UPDATE city set name=? WHERE id=?", [req.body.name, req.body.id], (err, rows, fields) => {
         if(!err) {
